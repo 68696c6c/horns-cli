@@ -1,36 +1,37 @@
 APP_PATH = /go/src/horns-cli
+HORNS_PATH = ~/Code/horns
 
 .DEFAULT:
 	@echo 'App targets:'
 	@echo
-	@echo '    image     build app image for local development'
-	@echo '    build     build app image and compile the app'
-	@echo '    init      initialize go modules'
-	@echo '    deps      install dependancies'
-	@echo '    setup     build image and install dependencies'
-	@echo '    states    run the US Map State component generator'
-	@echo '    test      run unit tests'
+	@echo '    build      compile the app'
+	@echo '    init       initialize go modules'
+	@echo '    deps       install dependancies'
+	@echo '    setup      build image and install dependencies'
+	@echo '    install    compile the project and copy the binary to the horns project'
+	@echo '    states     run the US Map State component generator'
+	@echo '    test       run unit tests'
 	@echo
 
 default: .DEFAULT
 
-image:
-	docker build . --target dev -t horns-cli:dev
-
 build:
-	docker-compose run --rm app go build -i -o horns-cli
+	go build -i -o horns
 
 init:
 	docker-compose run --rm app go mod init
 
 deps:
-	docker-compose run --rm app go mod tidy
-	docker-compose run --rm app go mod vendor
+	go mod tidy
+	go mod vendor
 
-setup: image init deps
+setup: init deps
+
+install: deps build
+	cp horns $(HORNS_PATH)/horns
 
 states: build
-	docker-compose run --rm app ./horns-cli gen:states
+	./horns gen:states "."
 
 test:
-	docker-compose run --rm app go test ./... -cover
+	go test ./... -cover

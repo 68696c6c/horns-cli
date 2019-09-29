@@ -14,6 +14,7 @@ require (
 	github.com/jinzhu/gorm v1.9.11 // indirect
 	github.com/json-iterator/go v1.1.7 // indirect
 	github.com/mattn/go-colorable v0.1.2 // indirect
+	github.com/pkg/errors v0.8.0
 	github.com/shopspring/decimal v0.0.0-20190905144223-a36b5d85f337 // indirect
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/viper v1.4.0

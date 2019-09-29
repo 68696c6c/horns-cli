@@ -47,38 +47,38 @@ func generateFile(basePath, fileName, fileTemplate string, data interface{}) err
 const templateStateLargeImports = ""
 
 const templateStateLabelLarge = `
-			<MapStateLabel
-				x="{{ .Label.X }}"
-				y="{{ .Label.Y }}"
-				transform="{{ .Label.Transform }}"
-				textY="{{ .Label.TextY }}"
-				className={getMapLabelClassName(abbr)}
-			>
-				{abbr}
-			</MapStateLabel>`
+      <MapStateLabel
+        x="{{ .Label.X }}"
+        y="{{ .Label.Y }}"
+        transform="{{ .Label.Transform }}"
+        textY="{{ .Label.TextY }}"
+        className={getMapLabelClassName(abbr)}
+      >
+        {abbr}
+      </MapStateLabel>`
 
 const templateStateSmallImports = `
-	MapStateLabelBackground,
-	getMapLabelBGClassName,`
+  MapStateLabelBackground,
+  getMapLabelBGClassName,`
 
 const templateStateLabelSmall = `
-			<>
-				<MapStateLabelBackground
-					x="{{ .LabelBackground.X }}"
-					y="{{ .LabelBackground.Y }}"
-					transform="{{ .LabelBackground.Transform }}"
-					className={getMapLabelBGClassName(abbr)}
-				/>
-				<MapStateLabel
-					x="{{ .Label.X }}"
-					y="{{ .Label.Y }}"
-					transform="{{ .Label.Transform }}"
-					textY="{{ .Label.TextY }}"
-					className={getMapLabelClassName(abbr)}
-				>
-					{abbr}
-				</MapStateLabel>
-			</>`
+      <>
+        <MapStateLabelBackground
+          x="{{ .LabelBackground.X }}"
+          y="{{ .LabelBackground.Y }}"
+          transform="{{ .LabelBackground.Transform }}"
+          className={getMapLabelBGClassName(abbr)}
+        />
+        <MapStateLabel
+          x="{{ .Label.X }}"
+          y="{{ .Label.Y }}"
+          transform="{{ .Label.Transform }}"
+          textY="{{ .Label.TextY }}"
+          className={getMapLabelClassName(abbr)}
+        >
+          {abbr}
+        </MapStateLabel>
+      </>`
 
 const templateStateComponentBase = `/** generated using horns-cli */
 /** @jsx jsx */
@@ -88,11 +88,11 @@ import PropTypes from 'prop-types'
 import { getColorVariants } from '../../../utils'
 
 import MapState, {
-	MapStateWrapper,
+  MapStateWrapper,
   MapStateLabel,%s
   getMapStateClassName,
   getMapLabelClassName,
-} from './_map-state'
+} from '../map-state'
 
 const abbr = '{{ .Abbr }}'
 
@@ -118,7 +118,7 @@ const {{ .ComponentName }} = ({
     labelFill={labelFill}
     labelFillHover={labelFillHover}
     labelFillActive={labelFillActive}
-	>
+  >
     <MapState
       d="{{ .Data }}"
       transform="{{ .Transform }}"
