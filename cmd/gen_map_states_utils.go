@@ -44,10 +44,10 @@ func generateFile(basePath, fileName, fileTemplate string, data interface{}) err
 	return nil
 }
 
-const templateStateLargeImports = ""
+const templateStateLargeImports = ` getMapStateClassName, getMapLabelClassName `
 
 const templateStateLabelLarge = `
-      <MapStateLabel
+      <Styled.MapStateLabel
         x="{{ .Label.X }}"
         y="{{ .Label.Y }}"
         transform="{{ .Label.Transform }}"
@@ -55,21 +55,23 @@ const templateStateLabelLarge = `
         className={getMapLabelClassName(abbr)}
       >
         {abbr}
-      </MapStateLabel>`
+      </Styled.MapStateLabel>`
 
 const templateStateSmallImports = `
-  MapStateLabelBackground,
-  getMapLabelBGClassName,`
+  getMapLabelBGClassName,
+  getMapStateClassName,
+  getMapLabelClassName,
+`
 
 const templateStateLabelSmall = `
       <>
-        <MapStateLabelBackground
+        <Styled.MapStateLabelBackground
           x="{{ .LabelBackground.X }}"
           y="{{ .LabelBackground.Y }}"
           transform="{{ .LabelBackground.Transform }}"
           className={getMapLabelBGClassName(abbr)}
         />
-        <MapStateLabel
+        <Styled.MapStateLabel
           x="{{ .Label.X }}"
           y="{{ .Label.Y }}"
           transform="{{ .Label.Transform }}"
@@ -77,7 +79,7 @@ const templateStateLabelSmall = `
           className={getMapLabelClassName(abbr)}
         >
           {abbr}
-        </MapStateLabel>
+        </Styled.MapStateLabel>
       </>`
 
 const templateStateComponentBase = `/** generated using horns-cli */
@@ -87,72 +89,31 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { getColorVariants } from '../../../utils'
 
-import MapState, {
-  MapStateWrapper,
-  MapStateLabel,%s
-  getMapStateClassName,
-  getMapLabelClassName,
-} from '../map-state'
+import * as Styled from '../us-map.styles'
+import {%s} from '../utils'
 
 const abbr = '{{ .Abbr }}'
 
-const {{ .ComponentName }} = ({
-  fill,
-  fillHover,
-  fillActive,
-  stroke,
-  strokeHover,
-  strokeActive,
-  labelFill,
-  labelFillHover,
-  labelFillActive,
-  showLabel,
-}) => (
-  <MapStateWrapper
-    fill={fill}
-    fillHover={fillHover}
-    fillActive={fillActive}
-    stroke={stroke}
-    strokeHover={strokeHover}
-    strokeActive={strokeActive}
-    labelFill={labelFill}
-    labelFillHover={labelFillHover}
-    labelFillActive={labelFillActive}
-  >
-    <MapState
+const {{ .ComponentName }} = ({ variant, showLabel }) => (
+  <Styled.MapStateWrapper variant={variant}>
+    <Styled.MapState
       d="{{ .Data }}"
       transform="{{ .Transform }}"
       className={getMapStateClassName(abbr)}
     />
     {showLabel && (%s
     )}
-  </MapStateWrapper>
+  </Styled.MapStateWrapper>
 )
 
 {{ .ComponentName }}.propTypes = {
   showLabel: PropTypes.bool,
-  fill: PropTypes.oneOf(getColorVariants()),
-  fillHover: PropTypes.oneOf(getColorVariants()),
-  fillActive: PropTypes.oneOf(getColorVariants()),
-  stroke: PropTypes.oneOf(getColorVariants()),
-  strokeHover: PropTypes.oneOf(getColorVariants()),
-  strokeActive: PropTypes.oneOf(getColorVariants()),
-  labelFill: PropTypes.oneOf(getColorVariants()),
-  labelFillHover: PropTypes.oneOf(getColorVariants()),
-  labelFillActive: PropTypes.oneOf(getColorVariants()),
+  variant: PropTypes.oneOf(getColorVariants(['custom'])),
 }
 
 {{ .ComponentName }}.defaultProps = {
   showLabel: true,
-  fill: 'primary',
-  fillHover: 'primary-light',
-  fillActive: 'primary-dark',
-  stroke: 'neutral',
-  strokeHover: 'neutral',
-  strokeActive: 'neutral',
-  labelFill: 'copy',
-  labelFillHover: 'copy',
-  labelFillActive: 'copy',
+  variant: 'custom',
 }
 
 export default {{ .ComponentName }}
