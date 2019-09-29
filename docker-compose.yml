@@ -1,0 +1,13 @@
+version: "3.5"
+
+volumes:
+  pkg:
+
+services:
+
+  app:
+    image: horns-cli:dev
+    volumes:
+      - pkg:/go/pkg
+      - ./:/go/src/horns-cli:cached
+    working_dir: /go/src/horns-cli
