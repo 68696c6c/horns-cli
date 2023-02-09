@@ -7,12 +7,10 @@ require (
 	github.com/corpix/uarand v0.1.1 // indirect
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/fatih/structtag v1.0.0 // indirect
-	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-gonic/gin v1.3.0 // indirect
+	github.com/gin-gonic/gin v1.7.7 // indirect
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/icrowley/fake v0.0.0-20180203215853-4178557ae428 // indirect
 	github.com/jinzhu/gorm v1.9.11 // indirect
-	github.com/json-iterator/go v1.1.7 // indirect
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/pkg/errors v0.8.0
 	github.com/shopspring/decimal v0.0.0-20190905144223-a36b5d85f337 // indirect
